@@ -7,15 +7,9 @@ import java.util.List;
 @Entity
 @Table(name = "spare_parts")
 public class SpareParts {
-    public SpareParts(List<Car> cars) {
-        this.cars = cars;
-    }
 
-    public SpareParts(String name, Integer price, List<Car> cars) {
-        this.name = name;
-        this.price = price;
-        this.cars = cars;
-    }
+
+
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -52,8 +46,8 @@ public class SpareParts {
         this.price = price;
     }
 
-    @ManyToMany(mappedBy = "spareParts")
-     List<Car> cars;
+    @OneToMany(mappedBy = "spareParts")
+    List< CarsSpareParts> carSpareParts;
 
     @OneToOne(mappedBy = "spareParts")
     Storage storage;

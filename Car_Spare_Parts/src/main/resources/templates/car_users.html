@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="ru" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8" />
+    <title>Список пользователей автомобилей</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet" />
+</head>
+<body>
+<div class="container mt-4">
+    <h1>Пользователи автомобилей</h1>
+
+    <form th:action="@{/cu/getByName}" method="get" class="mb-4 row g-3">
+        <div class="col-auto">
+            <input type="text" name="carModel" class="form-control" placeholder="Введите модель" required>
+        </div>
+        <div class="col-auto">
+            <button type="submit" class="btn btn-primary">Найти по модели автомобиля</button>
+        </div>
+    </form>
+    <button class="btn btn-primary mb-3" th:onclick="'location.href=\'/cu/get\''">Обновить список</button>
+
+    <table class="table table-striped">
+        <thead>
+        <tr>
+            <th>Марка</th>
+            <th>Модель</th>
+            <th>Запасная часть</th>
+            <th>Ряд на складе</th>
+            <th>Место на складе</th>
+            <th>Количество</th>
+            <th>Цена</th>
+            <th>Продать</th>
+
+        </tr>
+        </thead>
+        <tbody>
+
+        <tr th:each="carUserDTO : ${carsUserDTO}">
+            <td th:text="${carUserDTO.getCar()}">Марка</td>
+            <td th:text="${carUserDTO.getCarManufacturer()}">Модель</td>
+            <td th:text="${carUserDTO.getSparePartsName()}">Запасная часть</td>
+            <td th:text="${carUserDTO.getStorageRow()}">Ряд на складе</td>
+            <td th:text="${carUserDTO.getStoragePlace()}">Место на складе</td>
+            <td th:text="${carUserDTO.getStorageAmount()}">Количество</td>
+            <td th:text="${carUserDTO.getSparePartsPrice()}">Цена</td>
+            <td th:onclick="'location.href=\'/cu/get\''"><span>Продать</span></td>
+
+        </tr>
+        </tbody>
+    </table>
+</div>
+</body>
+</html>

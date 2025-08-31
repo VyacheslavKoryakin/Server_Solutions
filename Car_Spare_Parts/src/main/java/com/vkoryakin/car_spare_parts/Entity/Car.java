@@ -7,14 +7,10 @@ import java.util.List;
 @Entity
 @Table(name = "car")
 public class Car {
-    public Car(List<SpareParts> spareParts) {
-        this.spareParts = spareParts;
-    }
 
     public Car(String model, Integer generation, List<SpareParts> spareParts, CarManufacturer manufacturer) {
         this.model = model;
         this.generation = generation;
-        this.spareParts = spareParts;
         this.carManufacturer = manufacturer;
 
     }
@@ -27,20 +23,18 @@ public class Car {
     @Column(name = "generation")
     private Integer generation;
 
+    public Long getCarManufacturerId(){
+        return carManufacturer.getId();
+    }
+
     public Car() {
 
     }
 
-    public List<SpareParts> getSpareParts() {
-        return spareParts;
-    }
 
-    public void setSpareParts(List<SpareParts> spareParts) {
-        this.spareParts = spareParts;
-    }
 
-    public CarManufacturer getCarManufacturer() {
-        return carManufacturer;
+    public String getCarManufacturer() {
+        return carManufacturer.getName();
     }
 
 
@@ -74,16 +68,13 @@ public class Car {
 
 
 
-    @ManyToMany
-    @JoinTable(
-            name = "cars_spare_parts",
-            joinColumns = @JoinColumn(name = "cars_id"),
-            inverseJoinColumns = @JoinColumn(name = "spare_parts_id")
-    )
-     List<SpareParts> spareParts;
+    @OneToMany(mappedBy = "car")
+    List< CarsSpareParts> carSpareParts;
 
     @ManyToOne
     @JoinColumn(name ="manufacturer_id")
     CarManufacturer carManufacturer;
+
+
 }
 

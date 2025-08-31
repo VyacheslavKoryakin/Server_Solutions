@@ -16,12 +16,7 @@ public class CarUserDTO {
     private SpareParts spareParts;
     private Storage storage;
 
-String carModel;
-String carGeneration;
-String carBrand;
 
-String sparePartsName;
-int sparePartPrice;
 
 
     public CarUserDTO(Car car, CarManufacturer carManufacturer, SpareParts spareParts, Storage storage) {
@@ -31,34 +26,42 @@ int sparePartPrice;
         this.storage = storage;
     }
 
-    public Car getCar() {
-        return car;
+    public String getCar() {
+        return car.getModel();
     }
 
     public void setCar(Car car) {
         this.car = car;
     }
 
-    public CarManufacturer getCarManufacturer() {
-        return carManufacturer;
+    public String getCarManufacturer() {
+        return carManufacturer.getName();
     }
 
     public void setCarManufacturer(CarManufacturer carManufacturer) {
         this.carManufacturer = carManufacturer;
     }
 
-    public SpareParts getSpareParts() {
-        return spareParts;
+    public String getSparePartsName() {
+        return spareParts.getName();
+    }
+    public Integer getSparePartsPrice(){
+        return spareParts.getPrice();
     }
 
     public void setSpareParts(SpareParts spareParts) {
         this.spareParts = spareParts;
     }
 
-    public Storage getStorage() {
-        return storage;
+    public Integer getStorageRow() {
+        return storage.getRow();
     }
-
+    public Integer getStoragePlace() {
+        return storage.getPlace();
+    }
+    public Integer getStorageAmount() {
+        return storage.getAmount();
+    }
     public void setStorage(Storage storage) {
         this.storage = storage;
     }

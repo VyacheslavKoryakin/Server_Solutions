@@ -58,8 +58,8 @@ public class Storage {
         this.amount = amount;
     }
 
-    public SpareParts getSparePart() {
-        return sparePart;
+    public Long getSparePartId() {
+        return sparePart.getId();
     }
 
     public void setSparePart(SpareParts sparePart) {
