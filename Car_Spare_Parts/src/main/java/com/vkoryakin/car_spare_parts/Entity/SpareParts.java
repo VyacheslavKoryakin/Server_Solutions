@@ -2,30 +2,38 @@ package com.vkoryakin.car_spare_parts.Entity;
 
 import jakarta.persistence.*;
 
+import java.util.List;
+
 @Entity
 @Table(name = "spare_parts")
 public class SpareParts {
-    public SpareParts() {
+    public SpareParts(List<Car> cars) {
+        this.cars = cars;
     }
 
-    public SpareParts(String name, Integer price) {
+    public SpareParts(String name, Integer price, List<Car> cars) {
         this.name = name;
         this.price = price;
+        this.cars = cars;
     }
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    @Column(name="name")
+    @Column(name = "name")
     private String name;
-@Column(name="price")
+
+    @Column(name = "price")
     private Integer price;
+
+    public SpareParts() {
+
+    }
 
     public Long getId() {
         return id;
     }
-
 
 
     public String getName() {
@@ -43,4 +51,10 @@ public class SpareParts {
     public void setPrice(Integer price) {
         this.price = price;
     }
+
+    @ManyToMany(mappedBy = "spareParts")
+     List<Car> cars;
+
+    @OneToOne(mappedBy = "spareParts")
+    Storage storage;
 }

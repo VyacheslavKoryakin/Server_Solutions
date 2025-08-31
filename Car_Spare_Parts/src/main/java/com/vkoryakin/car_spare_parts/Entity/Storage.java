@@ -65,4 +65,7 @@ public class Storage {
     public void setSparePart(SpareParts sparePart) {
         this.sparePart = sparePart;
     }
+    @OneToOne
+    @JoinColumn(name = "spare_parts_id")
+    private SpareParts spareParts;
 }

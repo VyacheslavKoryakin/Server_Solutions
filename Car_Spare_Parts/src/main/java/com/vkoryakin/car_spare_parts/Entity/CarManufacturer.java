@@ -2,6 +2,8 @@ package com.vkoryakin.car_spare_parts.Entity;
 
 import jakarta.persistence.*;
 
+import java.util.List;
+
 @Entity
 @Table(name = "car_manufacturer")
 public class CarManufacturer {
@@ -31,4 +33,6 @@ public class CarManufacturer {
     public void setName(String name) {
         this.name = name;
     }
+    @OneToMany(mappedBy = "carManufacturer")
+    private List<Car> cars;
 }

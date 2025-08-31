@@ -2,16 +2,21 @@ package com.vkoryakin.car_spare_parts.Entity;
 
 import jakarta.persistence.*;
 
+import java.util.List;
+
 @Entity
 @Table(name = "car")
 public class Car {
-    public Car() {
+    public Car(List<SpareParts> spareParts) {
+        this.spareParts = spareParts;
     }
 
-    public Car(String model, Integer generation, CarManufacturer manufacturer) {
+    public Car(String model, Integer generation, List<SpareParts> spareParts, CarManufacturer manufacturer) {
         this.model = model;
         this.generation = generation;
-        this.manufacturer = manufacturer;
+        this.spareParts = spareParts;
+        this.carManufacturer = manufacturer;
+
     }
 
     @Id
@@ -22,9 +27,26 @@ public class Car {
     @Column(name = "generation")
     private Integer generation;
 
-    @ManyToOne
-    @JoinColumn(name = "manufacturer_id")
-    private CarManufacturer manufacturer;
+    public Car() {
+
+    }
+
+    public List<SpareParts> getSpareParts() {
+        return spareParts;
+    }
+
+    public void setSpareParts(List<SpareParts> spareParts) {
+        this.spareParts = spareParts;
+    }
+
+    public CarManufacturer getCarManufacturer() {
+        return carManufacturer;
+    }
+
+
+//    @ManyToOne
+//    @JoinColumn(name = "manufacturer_id")
+//    private CarManufacturer manufacturer;
 
 
     public Long getId() {
@@ -48,11 +70,20 @@ public class Car {
         this.generation = generation;
     }
 
-    public CarManufacturer getManufacturer() {
-        return manufacturer;
-    }
 
-    public void setManufacturer(CarManufacturer manufacturer) {
-        this.manufacturer = manufacturer;
-    }
+
+
+
+    @ManyToMany
+    @JoinTable(
+            name = "cars_spare_parts",
+            joinColumns = @JoinColumn(name = "cars_id"),
+            inverseJoinColumns = @JoinColumn(name = "spare_parts_id")
+    )
+     List<SpareParts> spareParts;
+
+    @ManyToOne
+    @JoinColumn(name ="manufacturer_id")
+    CarManufacturer carManufacturer;
 }
+
